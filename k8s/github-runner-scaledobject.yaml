@@ -1,0 +1,32 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: github-trigger-auth
+  namespace: default
+spec:
+  secretTargetRef:
+    - parameter: personalAccessToken
+      name: github-auth
+      key: personalAccessToken
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: github-runner-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: gitrunner-deployment
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  triggers:
+  - type: github-runner
+    metadata:
+      githubAPIURL: "https://api.github.com"
+      owner: "isaru66"
+      runnerScope: "repo"
+      repos: "keda-github-selfhost-runner"
+      labels: "k8s-keda-test"
+      targetWorkflowQueueLength: "1"
+    authenticationRef:
+     name: github-trigger-auth

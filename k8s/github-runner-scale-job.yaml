@@ -1,0 +1,45 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledJob
+metadata:
+  name: scaledjob-github-runner
+  namespace: github-runner
+spec:
+  jobTargetRef:
+    template:
+      metadata:
+        labels:
+          app: scaledjob-github-runner
+      spec:
+        containers:
+        - name: scaledjob-github-runner
+          image: myoung34/github-runner:latest
+          imagePullPolicy: Always
+          env:
+          - name: EPHEMERAL
+            value: "true"
+          - name: DISABLE_RUNNER_UPDATE
+            value: "true"
+          - name: REPO_URL
+            value: "https://github.com/isaru66/keda-github-selfhost-runner"
+          - name: RUNNER_SCOPE
+            value: "repo"
+          - name: LABELS
+            value: "k8s-keda-test"
+          - name: ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: github-auth
+                key: personalAccessToken
+        restartPolicy: Never
+  minReplicaCount: 0
+  maxReplicaCount: 20
+  pollingInterval: 30
+  triggers:
+  - type: github-runner
+    metadata:
+      owner: OWNER
+      repos: REPONAME(S)
+      labelsFromEnv: "LABELS"
+      runnerScopeFromEnv: "RUNNER_SCOPE"
+    authenticationRef:
+     name: github-trigger-auth
