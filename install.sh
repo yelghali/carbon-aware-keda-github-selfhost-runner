@@ -2,6 +2,8 @@
 # helm repo add kedacore https://kedacore.github.io/charts
 # helm repo update
 
+## IMPORTANT, make sure that kedacore is at version 2.10, as github runner scaler is avaliable from that version onward
+
 # SHOW CURRENT K8S CLUSTER
 kubectl cluster-info
 # PROMPT FOR CONFIRMATION
@@ -17,4 +19,7 @@ fi
 kubectl create namespace keda
 helm install keda kedacore/keda --namespace keda
 
-
+kubectl apply -f k8s/namespace.yaml 
+kubectl apply -f k8s/secret.yaml
+kubectl apply -f k8s/github-runner-trigger-auth.yaml
+kubectl apply -f k8s/github-runner-scale-job.yaml

@@ -37,9 +37,10 @@ spec:
   triggers:
   - type: github-runner
     metadata:
-      owner: OWNER
-      repos: REPONAME(S)
-      labelsFromEnv: "LABELS"
-      runnerScopeFromEnv: "RUNNER_SCOPE"
+      githubAPIURL: "https://api.github.com"
+      owner: "isaru66"
+      runnerScope: "repo"
+      repos: "keda-github-selfhost-runner"
+      labels: "k8s-keda-test"
     authenticationRef:
      name: github-trigger-auth

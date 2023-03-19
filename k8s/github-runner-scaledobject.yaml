@@ -1,15 +1,4 @@
 apiVersion: keda.sh/v1alpha1
-kind: TriggerAuthentication
-metadata:
-  name: github-trigger-auth
-  namespace: default
-spec:
-  secretTargetRef:
-    - parameter: personalAccessToken
-      name: github-auth
-      key: personalAccessToken
----
-apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: github-runner-scaledobject
