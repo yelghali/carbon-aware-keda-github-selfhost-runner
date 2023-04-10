@@ -12,9 +12,9 @@ spec:
   - type: github-runner
     metadata:
       githubAPIURL: "https://api.github.com"
-      owner: "isaru66"
+      owner: "yelghali"
       runnerScope: "repo"
-      repos: "keda-github-selfhost-runner"
+      repos: "carbon-aware-keda-github-selfhost-runner"
       labels: "k8s-keda-test"
       targetWorkflowQueueLength: "1"
     authenticationRef:
