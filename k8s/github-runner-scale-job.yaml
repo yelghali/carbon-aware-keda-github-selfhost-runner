@@ -20,7 +20,7 @@ spec:
           - name: DISABLE_RUNNER_UPDATE
             value: "true"
           - name: REPO_URL
-            value: "https://github.com/isaru66/keda-github-selfhost-runner"
+            value: "https://github.com/yelghali/carbon-aware-keda-github-selfhost-runner"
           - name: RUNNER_SCOPE
             value: "repo"
           - name: LABELS
@@ -38,9 +38,9 @@ spec:
   - type: github-runner
     metadata:
       githubAPIURL: "https://api.github.com"
-      owner: "isaru66"
+      owner: "yelghali"
       runnerScope: "repo"
-      repos: "keda-github-selfhost-runner"
+      repos: "carbon-aware-keda-github-selfhost-runner"
       labels: "k8s-keda-test"
     authenticationRef:
      name: github-trigger-auth
